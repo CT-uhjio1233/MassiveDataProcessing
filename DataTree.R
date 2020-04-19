@@ -4,8 +4,9 @@ library("rpart.plot")
 library("rattle")
 
 #載入資料(設定工作目錄,資料及存放地)
-setwd('C:\r place')
-
+getwd()
+setwd("C:/r place")
+getwd()
 #測試模型,可隨機產生(訓練資料,測試資料)
 traindata=read.csv("Parkinsons_Train.csv")
 testdata=read.csv("Parkinsons_Test.csv")
