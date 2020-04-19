@@ -27,46 +27,47 @@ prp(DataTree,          #模型
 
 fancyRpartPlot(DataTree)
 
-#預測
+#建構預測模型
 result <- predict(DataTree, newdata=testdata, type="class")
 
 #建立混淆矩陣(confusion,matrix)觀察模型表現
-cm <- table(testdata$status,result,dnn=c("x","y"))#x為實際y為預測
+cm <- table(testdata$status,result,dnn=c("實際","預測"))
 cm
-mycolName<- colnames(cm)
+mycolName<- colnames(cm)#檢查欄位名稱
 mycolName[1]
 
 #(6A)正確率
 #計算正確率(precision)
 precision <- (cm[[1]]/sum(cm[,1]))
-paste("預測",mycolName[1],"的正確率,precision=",precision)
-
+st<- paste("預測",mycolName[1],"的正確率,precision=",precision)
+print(st)
 #計算正確率(TPR)
 TPR <- (cm[[1]]/sum(cm[1,]))
-paste("預測",mycolName[1],"的正確率,TPR=",TPR)
-
+st<- paste("預測",mycolName[1],"的正確率,TPR=",TPR)
+print(st)
 #計算正確率(TNR)
 TNR<-(cm[[4]]/sum(cm[2,]))
-paste("預測",mycolName[2],"的正確率,TNR=",TNR)
-
+st<- paste("預測",mycolName[2],"的正確率,TNR=",TNR)
+print(st)
 #(6B)正確率
 #計算正確率(precision)
 precision <- (cm[4]/sum(cm[,2]))
-paste("預測",mycolName[1],"的正確率,=precision",precision)
-
+st<- paste("預測",mycolName[1],"的正確率,=precision",precision)
+print(st)
 #計算正確率(TPR)
 TPR <- (cm[[4]]/sum(cm[2,]))
-paste("預測",mycolName[2],"的正確率,TPR=",TPR)
-
+st<- paste("預測",mycolName[2],"的正確率,TPR=",TPR)
+print(st)
 #計算正確率(TNR)
 TNR <- (cm[[4]]/sum(cm[2,]))
-paste("預測",mycolName[2],"的正確率,TNR=",TNR)
-
+st<- paste("預測",mycolName[2],"的正確率,TNR=",TNR)
+print(st)
 
 #整體準確率(取出對角/總數)
 accuracy <- sum(diag(cm))/sum(cm)
-paste("整體準確率=",accuracy)
-paste("整體準確率=",round(accuracy,2))
-
+st<- paste("整體準確率=",accuracy)
+print(st)
+st<- paste("整體準確率=",round(accuracy,2))
+print(st)
 
 
