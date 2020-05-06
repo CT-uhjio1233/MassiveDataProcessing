@@ -5,7 +5,7 @@ library("rattle")
 
 #載入資料(設定工作目錄,資料及存放地)
 
-setwd("C:/r place")
+setwd("~/Documents/database")
 
 #測試模型,可隨機產生(訓練資料,測試資料)
 traindata=read.csv("Parkinsons_Train.csv")
