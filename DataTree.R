@@ -5,7 +5,7 @@ library("rattle")
 
 #載入資料(設定工作目錄,資料及存放地)
 getwd()
-setwd("C:/r place")
+setwd("D:/r place")
 getwd()
 #測試模型,可隨機產生(訓練資料,測試資料)
 traindata=read.csv("Parkinsons_Train.csv")
@@ -64,7 +64,7 @@ paste("預測",mycolName[2],"的正確率,TNR=",TNR)
 
 
 #整體準確率(取出對角/總數)
-accuracy <- sun(diag(cm))/sum(cm)
+accuracy <- sum(diag(cm))/sum(cm)
 paste("整體準確率=",accuracy)
 paste("整體準確率=",round(accuracy,2))
 
