@@ -2,19 +2,12 @@
 
 
 
-#install.package("randomForest")
-
-packageName="randomForest"
-
-if(!(packageName %in% rownames(installed.package()))){
-  install.packages(packageName)
-}
 
 #載入資料library
 library(randomForest)
 
 #設定工作目錄
-setwd('AppleSSD/User/ct/Documents/database')
+setwd("~/Documents/database")
 
 #測試模型,可隨機產生(訓練資料,測試資料)
 traindata=read.csv("Parkinsons_Train.csv")
