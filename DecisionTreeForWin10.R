@@ -3,71 +3,70 @@ library("rpart")
 library("rpart.plot")
 library("rattle")
 
-#è¼‰å…¥è³‡æ–™(è¨­å®šå·¥ä½œç›®éŒ„,è³‡æ–™åŠå­˜æ”¾åœ°)
-
-setwd("C:/r place")
-
-#æ¸¬è©¦æ¨¡å‹,å¯éš¨æ©Ÿç”¢ç”Ÿ(è¨“ç·´è³‡æ–™,æ¸¬è©¦è³‡æ–™)
+#¸ü¤J¸ê®Æ(³]©w¤u§@¥Ø¿ı,¸ê®Æ¤Î¦s©ñ¦a)
+getwd()
+setwd("D:/r place")
+getwd()
+#´ú¸Õ¼Ò«¬,¥iÀH¾÷²£¥Í(°V½m¸ê®Æ,´ú¸Õ¸ê®Æ)
 traindata=read.csv("Parkinsons_Train.csv")
 testdata=read.csv("Parkinsons_Test.csv")
 
 require(rpart)
 
-#å»ºç«‹æ±ºç­–æ¨¹æ¨¡å‹;(å› è®Šæ•¸~è‡ªè®Šæ•¸)
+#«Ø¥ß¨Mµ¦¾ğ¼Ò«¬;(¦]ÅÜ¼Æ~¦ÛÅÜ¼Æ)
 DataTree <- rpart(status ~ ., data = traindata, method = "class")
 
-#ç•«æ±ºç­–æ¨¹
+#µe¨Mµ¦¾ğ
 require(rpart.plot)
-prp(DataTree,          #æ¨¡å‹
-    faclen=0,          #å‘ˆç¾çš„è®Šæ•¸ä¸è¦ç¸®å¯«
-    fallen.leaves=TRUE,#è®“æ¨¹æä»¥å‚ç›´çš„æ–¹å¼å‘ˆç¾
-    shadow.col="gray", #æœ€ä¸‹æ–¹çš„ç¯€é»å¡—ä¸Šé™°å½±
+prp(DataTree,          #¼Ò«¬
+    faclen=0,          #§e²{ªºÅÜ¼Æ¤£­nÁY¼g
+    fallen.leaves=TRUE,#Åı¾ğªK¥H««ª½ªº¤è¦¡§e²{
+    shadow.col="gray", #³Ì¤U¤èªº¸`ÂI¶î¤W³±¼v
     #number of correct classification /number of observation is that node
     extra=2)
 
 fancyRpartPlot(DataTree)
 
-#å»ºæ§‹é æ¸¬æ¨¡å‹
+#¹w´ú
 result <- predict(DataTree, newdata=testdata, type="class")
 
-#å»ºç«‹æ··æ·†çŸ©é™£(confusion,matrix)è§€å¯Ÿæ¨¡å‹è¡¨ç¾
-cm <- table(testdata$status,result,dnn=c("å¯¦éš›","é æ¸¬"))
+#«Ø¥ß²V²c¯x°}(confusion,matrix)Æ[¹î¼Ò«¬ªí²{
+cm <- table(testdata$status,result,dnn=c("x","y"))#x¬°¹ê»Úy¬°¹w´ú
 cm
-mycolName<- colnames(cm)#æª¢æŸ¥æ¬„ä½åç¨±
+mycolName<- colnames(cm)
 mycolName[1]
 
-#(6A)æ­£ç¢ºç‡
-#è¨ˆç®—æ­£ç¢ºç‡(precision)
+#(6A)¥¿½T²v
+#­pºâ¥¿½T²v(precision)
 precision <- (cm[[1]]/sum(cm[,1]))
-st<- paste("é æ¸¬",mycolName[1],"çš„æ­£ç¢ºç‡,precision=",precision)
-print(st)
-#è¨ˆç®—æ­£ç¢ºç‡(TPR)
-TPR <- (cm[[1]]/sum(cm[1,]))
-st<- paste("é æ¸¬",mycolName[1],"çš„æ­£ç¢ºç‡,TPR=",TPR)
-print(st)
-#è¨ˆç®—æ­£ç¢ºç‡(TNR)
-TNR<-(cm[[4]]/sum(cm[2,]))
-st<- paste("é æ¸¬",mycolName[2],"çš„æ­£ç¢ºç‡,TNR=",TNR)
-print(st)
-#(6B)æ­£ç¢ºç‡
-#è¨ˆç®—æ­£ç¢ºç‡(precision)
-precision <- (cm[4]/sum(cm[,2]))
-st<- paste("é æ¸¬",mycolName[1],"çš„æ­£ç¢ºç‡,=precision",precision)
-print(st)
-#è¨ˆç®—æ­£ç¢ºç‡(TPR)
-TPR <- (cm[[4]]/sum(cm[2,]))
-st<- paste("é æ¸¬",mycolName[2],"çš„æ­£ç¢ºç‡,TPR=",TPR)
-print(st)
-#è¨ˆç®—æ­£ç¢ºç‡(TNR)
-TNR <- (cm[[4]]/sum(cm[2,]))
-st<- paste("é æ¸¬",mycolName[2],"çš„æ­£ç¢ºç‡,TNR=",TNR)
-print(st)
+paste("¹w´ú",mycolName[1],"ªº¥¿½T²v,precision=",precision)
 
-#æ•´é«”æº–ç¢ºç‡(å–å‡ºå°è§’/ç¸½æ•¸)
+#­pºâ¥¿½T²v(TPR)
+TPR <- (cm[[1]]/sum(cm[1,]))
+paste("¹w´ú",mycolName[1],"ªº¥¿½T²v,TPR=",TPR)
+
+#­pºâ¥¿½T²v(TNR)
+TNR<-(cm[[4]]/sum(cm[2,]))
+paste("¹w´ú",mycolName[2],"ªº¥¿½T²v,TNR=",TNR)
+
+#(6B)¥¿½T²v
+#­pºâ¥¿½T²v(precision)
+precision <- (cm[4]/sum(cm[,2]))
+paste("¹w´ú",mycolName[1],"ªº¥¿½T²v,=precision",precision)
+
+#­pºâ¥¿½T²v(TPR)
+TPR <- (cm[[4]]/sum(cm[2,]))
+paste("¹w´ú",mycolName[2],"ªº¥¿½T²v,TPR=",TPR)
+
+#­pºâ¥¿½T²v(TNR)
+TNR <- (cm[[4]]/sum(cm[2,]))
+paste("¹w´ú",mycolName[2],"ªº¥¿½T²v,TNR=",TNR)
+
+
+#¾ãÅé·Ç½T²v(¨ú¥X¹ï¨¤/Á`¼Æ)
 accuracy <- sum(diag(cm))/sum(cm)
-st<- paste("æ•´é«”æº–ç¢ºç‡=",accuracy)
-print(st)
-st<- paste("æ•´é«”æº–ç¢ºç‡=",round(accuracy,2))
-print(st)
+paste("¾ãÅé·Ç½T²v=",accuracy)
+paste("¾ãÅé·Ç½T²v=",round(accuracy,2))
+
 
 
