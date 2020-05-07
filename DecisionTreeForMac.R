@@ -59,7 +59,7 @@ TPR <- (cm[[4]]/sum(cm[2,]))
 st<- paste("預測",mycolName[2],"的正確率,TPR=",TPR)
 print(st)
 #計算正確率(TNR)
-TNR <- (cm[[4]]/sum(cm[2,]))
+TNR <- (cm[[1]]/sum(cm[1,]))
 st<- paste("預測",mycolName[2],"的正確率,TNR=",TNR)
 print(st)
 
