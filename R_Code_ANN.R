@@ -14,24 +14,26 @@ setwd("~/Documents/database")#設定工作目錄
 #Parkinsons<-Parksons[-c(1)]
 #np=ceiling(0.1*nrow(Parkinsons))#無條件進位
 #test.index=sample(1:nrow(Parkinsons),np)#取索引值,抽樣10%(np)個
-#testdata
+#testdata=Parkinsons[test.index,]#設定測試資料
+#traindata=Parkinsons[-test.index,]#設定訓練資料
 
 traindata=read.csv("Parkinsons_TrainANN.csv")
 testdata=read.csv("Parkinsons_TestANN.csv")
-
+#去除第一欄PK不適合分岔屬性
 testdata <- testdata[-c(1)]
 traindata <- traindata[-c(1)]
 
+#原始資料就會變成像這樣
 head(traindata)
 formula.bpn <- as.formula(status ~ B+C+D+E+F+G+H+I+J+K+L+M+N+O+P+Q+R+S+T+U+V+W)
 
 bpn <- neuralnet(data=traindata,
                  formula=formula.bpn,
                  
-                 hidden=c(2),
-                 learningrate=0.01,
-                 threshold=0.01,
-                 stepmax=5e5
+                 hidden=c(2),#一個隱藏層:2個node
+                 learningrate=0.01,#leearing rate
+                 threshold=0.01,#partial derivatives of the error function, a stopping criteria
+                 stepmax=5e5#最大的iteration數=500000(5*10^5)
                  )
 
 plot(bpn)
