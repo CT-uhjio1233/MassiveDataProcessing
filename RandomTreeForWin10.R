@@ -50,6 +50,7 @@ result<- predict(Parkinsons.RF,newdata=testdata,type="class")
 #建立混淆矩陣(confusion,matrix)觀察模型表現
 cm <- table(testdata$status,result,dnn=c("實際","預測"))
 cm
+print(cm)
 mycolName<- colnames(cm)#檢查欄位名稱
 mycolName[1]
 
@@ -91,10 +92,4 @@ print(st)
 cm <- table(testdata$status,result,dnn=c("實際","預測"))
 cmRF.factor <- table(factor(testdata$status,ordered=TRUE,levels=c("Y","N")),factor(result,order=TRUE,levels=c("Y","N")),dnn=c("Real","Pred"))
 cmRF.factor
-
-
-
-
-
-
-
+print(cmRF.factor)
