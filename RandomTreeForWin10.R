@@ -7,7 +7,8 @@
 library(randomForest)
 
 #設定工作目錄
-setwd("d:/r place")
+
+setwd("D:/r place")
 
 #測試模型,可隨機產生(訓練資料,測試資料)
 traindata=read.csv("Parkinsons_Train.csv")
@@ -22,7 +23,9 @@ testdata=read.csv("Parkinsons_Test.csv")
 #traindata=Parkinsons[-test.index,]#設定訓練資料
 
 #建立決策樹模型;(因變數~自變數)
-Parkinsons.RF=randomForest(status~.,data=traindata,importance=TRUE,proximity=TRUE,ntree=500,action=na.fail)
+Parkinsons.RF=randomForest(status~.,data=traindata,importance=TRUE,proximity=TRUE,ntree=500,na.action=na.fail)
+
+
 #第一個參數(G3~.):表示除了G3屬性之外，其他屬性皆為模型之引數(因為我們要預測G3呀~)
 #第二個參數(data=stud_math):表示模型中含有變數的一組資料
 #第三個參數(importance=TRUE):是否計算每個模型中各屬性之重要值，資料型態為布林
@@ -47,6 +50,7 @@ result<- predict(Parkinsons.RF,newdata=testdata,type="class")
 #建立混淆矩陣(confusion,matrix)觀察模型表現
 cm <- table(testdata$status,result,dnn=c("實際","預測"))
 cm
+print(cm)
 mycolName<- colnames(cm)#檢查欄位名稱
 mycolName[1]
 
@@ -60,8 +64,8 @@ TPR <- (cm[[1]]/sum(cm[1,]))
 st<- paste("預測",mycolName[1],"的正確率,TPR=",TPR)
 print(st)
 #計算正確率(TNR)
-TNR<-(cm[[4]]/sum(cm[2,]))
-st<- paste("預測",mycolName[2],"的正確率,TNR=",TNR)
+TNR<-(cm[[1]]/sum(cm[1,]))
+st<- paste("預測",mycolName[1],"的正確率,TNR=",TNR)
 print(st)
 #(6B)正確率
 #計算正確率(precision)
@@ -88,11 +92,4 @@ print(st)
 cm <- table(testdata$status,result,dnn=c("實際","預測"))
 cmRF.factor <- table(factor(testdata$status,ordered=TRUE,levels=c("Y","N")),factor(result,order=TRUE,levels=c("Y","N")),dnn=c("Real","Pred"))
 cmRF.factor
-
-
-
-
-
-
-
-
+print(cmRF.factor)
