@@ -29,7 +29,6 @@ formula.bpn <- as.formula(status ~ B+C+D+E+F+G+H+I+J+K+L+M+N+O+P+Q+R+S+T+U+V+W)
 
 bpn <- neuralnet(data=traindata,
                  formula=formula.bpn,
-                 
                  hidden=c(2),#一個隱藏層:2個node
                  learningrate=0.01,#leearing rate
                  threshold=0.01,#partial derivatives of the error function, a stopping criteria

@@ -8,7 +8,8 @@ library("rattle")
 setwd("~/Documents/database")
 
 #測試模型,可隨機產生(訓練資料,測試資料)
-traindata=read.csv("Parkinsons_Train.csv")
+write.table(Data1,file = "~/Documents/database/Parkinsons_Test.csv")
+traindata=read.csv()
 testdata=read.csv("Parkinsons_Test.csv")
 
 require(rpart)
