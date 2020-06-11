@@ -17,15 +17,13 @@ setwd("G:/RCode")#設定工作目錄
 #testdata=Parkinsons[test.index,]#設定測試資料
 #traindata=Parkinsons[-test.index,]#設定訓練資料
 
-traindata=read.csv("Parkinsons_TrainANN.csv")
-testdata=read.csv("Parkinsons_TestANN.csv")
+traindata=read.csv("SPECTF_test.csv")
+testdata=read.csv("SPECTF_train.csv")
 #去除第一欄PK不適合分岔屬性
-testdata <- testdata[-c(1)]
-traindata <- traindata[-c(1)]
 
 #原始資料就會變成像這樣
 head(traindata)
-formula.bpn <- as.formula(status ~ B+C+D+E+F+G+H+I+J+K+L+M+N+O+P+Q+R+S+T+U+V+W)
+formula.bpn <- as.formula(status ~ F1+F2+F3+F4+F5+F6+F7+F8+F9+F10+F11+F12+F13+F14+F15+F16+F17+F18+F19+F20+F21+F22)
 
 bpn <- neuralnet(data=traindata,
                  formula=formula.bpn,

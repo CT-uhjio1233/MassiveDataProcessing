@@ -3,78 +3,78 @@ library("rpart")
 library("rpart.plot")
 library("rattle")
 
-#¸ü¤J¸ê®Æ(³]©w¤u§@¥Ø¿ý,¸ê®Æ¤Î¦s©ñ¦a)
+#???J????(?]?w?u?@?Ø¿?,???Æ¤Î¦s???a)
 
-setwd("D:/r place")
+setwd("G:/RCode")
 
-#´ú¸Õ¼Ò«¬,¥iÀH¾÷²£¥Í(°V½m¸ê®Æ,´ú¸Õ¸ê®Æ)
+#???Õ¼Ò«?,?i?H??????(?V?m????,???Õ¸???)
 traindata=read.csv("census_train.csv")
 testdata=read.csv("census_test.csv")
 
 require(rpart)
 
-#«Ø¥ß¨Mµ¦¾ð¼Ò«¬;(¦]ÅÜ¼Æ~¦ÛÅÜ¼Æ)
+#?Ø¥ß¨M?????Ò«?;(?]?Ü¼?~???Ü¼?)
 DataTree <- rpart(status~.,data=traindata,method = "class")
 
 
-#µe¨Mµ¦¾ð
+#?e?M????
 require(rpart.plot)
-prp(DataTree,          #¼Ò«¬
-    faclen=0,          #§e²{ªºÅÜ¼Æ¤£­nÁY¼g
-    fallen.leaves=TRUE,#Åý¾ðªK¥H««ª½ªº¤è¦¡§e²{
-    shadow.col="gray", #³Ì¤U¤èªº¸`ÂI¶î¤W³±¼v
+prp(DataTree,          #?Ò«?
+    faclen=0,          #?e?{???Ü¼Æ¤??n?Y?g
+    fallen.leaves=TRUE,#?????K?H???????è¦¡?e?{
+    shadow.col="gray", #?Ì¤U?èªº?`?I???W???v
     extra=0)
 
 fancyRpartPlot(DataTree)
 
-#¹w´ú
+#?w??
 
 result <- predict(DataTree,newdata=testdata,type="class")
 
-#«Ø¥ß²V²c¯x°}(confusion,matrix)Æ[¹î¼Ò«¬ªí²{
-cm <- table(testdata$status,result,dnn=c("¹ê»Ú","¹w´ú"))
+#?Ø¥ß²V?c?x?}(confusion,matrix)?[???Ò«????{
+cm <- table(testdata$status,result,dnn=c("????","?w??"))
 print(cm)
 mycolName<- colnames(cm)
 mycolName[1]
 
-#(6A)¥¿½T²v
-#­pºâ¥¿½T²v(precision)
+#(6A)???T?v
+#?p?â¥¿?T?v(precision)
 precision <- (cm[[1]]/sum(cm[,1]))
 print(cm[,1])
-st<-paste("¹w´ú",mycolName[1],"ªº¥¿½T²v,precision=",precision)
+st<-paste("?w??",mycolName[1],"?????T?v,precision=",precision)
 print(st)
 
-#­pºâ¥¿½T²v(TPR)
+#?p?â¥¿?T?v(TPR)
 TPR <- (cm[[1]]/sum(cm[1,]))
-st<-paste("¹w´ú",mycolName[1],"ªº¥¿½T²v,TPR=",TPR)
+st<-paste("?w??",mycolName[1],"?????T?v,TPR=",TPR)
 print(st)
 
-#­pºâ¥¿½T²v(TNR)
+#?p?â¥¿?T?v(TNR)
 TNR<-(cm[[4]]/sum(cm[2,]))
-st<-paste("¹w´ú",mycolName[1],"ªº¥¿½T²v,TNR=",TNR)
+st<-paste("?w??",mycolName[1],"?????T?v,TNR=",TNR)
 print(st)
 
-#(6B)¥¿½T²v
-#­pºâ¥¿½T²v(precision)
+#(6B)???T?v
+#?p?â¥¿?T?v(precision)
 precision <- (cm[[4]]/sum(cm[,2]))
-st<-paste("¹w´ú",mycolName[2],"ªº¥¿½T²v,=precision",precision)
+st<-paste("?w??",mycolName[2],"?????T?v,=precision",precision)
 print(st)
 
-#­pºâ¥¿½T²v(TPR)
+#?p?â¥¿?T?v(TPR)
 TPR <- (cm[[4]]/sum(cm[2,]))
-st<-paste("¹w´ú",mycolName[2],"ªº¥¿½T²v,TPR=",TPR)
+st<-paste("?w??",mycolName[2],"?????T?v,TPR=",TPR)
 print(st)
 
-#­pºâ¥¿½T²v(TNR)
+#?p?â¥¿?T?v(TNR)
 TNR <- (cm[[1]]/sum(cm[1,]))
-st<-paste("¹w´ú",mycolName[2],"ªº¥¿½T²v,TNR=",TNR)
+st<-paste("?w??",mycolName[2],"?????T?v,TNR=",TNR)
 print(st)
 
-#¾ãÅé·Ç½T²v(¨ú¥X¹ï¨¤/Á`¼Æ)
+#?????Ç½T?v(???X?ï¨¤/?`??)
 accuracy <- sum(diag(cm))/sum(cm)
-st<-paste("¾ãÅé·Ç½T²v=",accuracy)
+st<-paste("?????Ç½T?v=",accuracy)
 print(st)
-st<-paste("¾ãÅé·Ç½T²v=",round(accuracy,2))
+st<-paste("?????Ç½T?v=",round(accuracy,2))
 print(st)
 print(cm)
 

@@ -4,12 +4,11 @@ library("rpart.plot")
 library("rattle")
 
 #載入資料(設定工作目錄,資料及存放地)
-
 setwd("G:/RCode")
 
 #測試模型,可隨機產生(訓練資料,測試資料)
-traindata=read.csv("Parkinsons_Train.csv")
-testdata=read.csv("Parkinsons_Test.csv")
+traindata=read.csv("census_train.csv")
+testdata=read.csv("census_test.csv")
 
 require(rpart)
 
@@ -23,7 +22,7 @@ prp(DataTree,          #模型
     fallen.leaves=TRUE,#讓樹枝以垂直的方式呈現
     shadow.col="gray", #最下方的節點塗上陰影
     #number of correct classification /number of observation is that node
-    extra = 2)
+    extra=2)
 
 fancyRpartPlot(DataTree)
 
@@ -33,7 +32,6 @@ result <- predict(DataTree, newdata=testdata, type="class")
 #建立混淆矩陣(confusion,matrix)觀察模型表現
 cm <- table(testdata$status,result,dnn=c("實際","預測"))
 cm
-print(cm)
 mycolName<- colnames(cm)#檢查欄位名稱
 mycolName[1]
 
@@ -70,5 +68,6 @@ st<- paste("整體準確率=",accuracy)
 print(st)
 st<- paste("整體準確率=",round(accuracy,2))
 print(st)
+
 
 

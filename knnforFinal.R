@@ -1,3 +1,4 @@
+
 library(class)
 library(dplyr)
 library(ggplot2)
@@ -9,23 +10,24 @@ if(!(packageName%in%rownames(installed.packages()))){
 setwd("G:/RCode")
 
 #測試模型,可隨機產生(訓練資料,測試資料)
-traindata=read.csv("Parkinsons_TestANN.csv")
-testdata=read.csv("Parkinsons_TestANN.csv")
+
+traindata=read.csv("SPECTF_test.csv")
+testdata=read.csv("SPECTF_train.csv")
 
 #去除第一欄PK不適合分岔屬性
 
-testdata <- testdata[-c(1)]
-traindata <- traindata[-c(1)]
-
 trainLabels <- traindata$status
 
-knnTrain <- traindata[,-c(24)]
-knnTest <- testdata[,-c(24)]
+dim(trainLabels)
+
+cl = trainLabels
 
 kv <- round(sqrt(length(knnTrain)))
 
-prediction <- knn(train = knnTrain, test = knnTest, cl = trainLabels, k=kv)
-
+prediction <- knn(train = knnTrain, test = knnTest, cl, k=kv)
+dim(train_points)
+dim(test_points)
+length(cl)
 
 cm <- table(testdata$status,prediction,dnn=c("實際","預測"))
 print(cm)
@@ -111,7 +113,6 @@ if(length(cmKNN.factor)==4){
   accuracy <- sum(diag(cmKNN.factor)[[2]])/sum(cmKNN.factor[,1])
   print(paste("整體準確率=",round(accuracy,2)))
 }
-
 print(cmKNN.factor)
 
 klist <- seq(1:(kv+kv))
@@ -125,3 +126,4 @@ df <- data.frame(kv=klist,accuracy=accuracies)
 
 
 ggplot(df,aes(x=kv,y=accuracy,label=kv,color=accuracy))+geom_point(size=5)+geom_text(vjust=2)
+

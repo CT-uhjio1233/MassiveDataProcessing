@@ -8,8 +8,8 @@ library(e1071)
 
 setwd("G:/RCode")
 
-traindata=read.csv("Parkinsons_Train.csv")
-testdata=read.csv("Parkinsons_Test.csv")
+traindata=read.csv("census_train.csv")
+testdata=read.csv("census_test.csv")
 
 nbcm <- naiveBayes(status~.,data=traindata)
 

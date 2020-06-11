@@ -16,8 +16,8 @@ setwd('G:/RCode') #設定工作目錄(資料集存放的地方)
 #(2)測試模型，可隨機產生。(訓練資料、測試資料)
 #第一種分割方式:自己把資料分割好再做
 
-traindata=read.csv("Parkinsons_Train.csv")
-testdata=read.csv("Parkinsons_Test.csv")
+traindata=read.csv("SPECTF_train.csv")
+testdata=read.csv("SPECTF_test.csv")
 
 #第二種分割方式:電腦把資料分割好再做
 #parkinsons=read.csv(ParkinsonsANN.csv)
